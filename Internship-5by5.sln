@@ -85,9 +85,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex17-BookShelf", "Ex17-Book
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson14-Encapsulation", "Lesson14-Encapsulation\Lesson14-Encapsulation.csproj", "{4C66AD5F-D77E-4C2A-8BAE-8A6AEC71E68A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson15-Chaining", "Lesson15-Chaining\Lesson15-Chaining.csproj", "{BBFD06E4-5FF8-41E1-8455-EAC7D9A9084C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson15-Chaining", "Lesson15-Chaining\Lesson15-Chaining.csproj", "{BBFD06E4-5FF8-41E1-8455-EAC7D9A9084C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson16-DynamicStack", "Lesson16-DynamicStack\Lesson16-DynamicStack.csproj", "{C849E92E-D877-4643-A090-D5F7787FCD8B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson16-DynamicStack", "Lesson16-DynamicStack\Lesson16-DynamicStack.csproj", "{C849E92E-D877-4643-A090-D5F7787FCD8B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson17.DynamicQueue", "Lesson17.DynamicQueue\Lesson17.DynamicQueue.csproj", "{E1DCF658-3225-4615-B382-ACF008597DD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -231,6 +233,10 @@ Global
 		{C849E92E-D877-4643-A090-D5F7787FCD8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C849E92E-D877-4643-A090-D5F7787FCD8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C849E92E-D877-4643-A090-D5F7787FCD8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1DCF658-3225-4615-B382-ACF008597DD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1DCF658-3225-4615-B382-ACF008597DD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1DCF658-3225-4615-B382-ACF008597DD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1DCF658-3225-4615-B382-ACF008597DD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -276,6 +282,7 @@ Global
 		{4C66AD5F-D77E-4C2A-8BAE-8A6AEC71E68A} = {23935B36-8D12-4FD4-BFE6-A3D78997BFE7}
 		{BBFD06E4-5FF8-41E1-8455-EAC7D9A9084C} = {23935B36-8D12-4FD4-BFE6-A3D78997BFE7}
 		{C849E92E-D877-4643-A090-D5F7787FCD8B} = {23935B36-8D12-4FD4-BFE6-A3D78997BFE7}
+		{E1DCF658-3225-4615-B382-ACF008597DD3} = {23935B36-8D12-4FD4-BFE6-A3D78997BFE7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84A776AD-5CD1-4264-96E1-055F2EE0A432}
