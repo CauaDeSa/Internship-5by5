@@ -95,6 +95,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson17-DynamicQueue", "Le
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex18-IntegerStackOperations", "Ex18-IntegerStackOperations\Ex18-IntegerStackOperations.csproj", "{28FFD600-AFD2-48DF-9267-9C32F52CBE66}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex19-IntegerQueueOperations", "Ex19-IntegerQueueOperations\Ex19-IntegerQueueOperations.csproj", "{7879D158-5910-453F-95C1-9186F7F7D70D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -249,6 +251,10 @@ Global
 		{28FFD600-AFD2-48DF-9267-9C32F52CBE66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28FFD600-AFD2-48DF-9267-9C32F52CBE66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28FFD600-AFD2-48DF-9267-9C32F52CBE66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7879D158-5910-453F-95C1-9186F7F7D70D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7879D158-5910-453F-95C1-9186F7F7D70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7879D158-5910-453F-95C1-9186F7F7D70D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7879D158-5910-453F-95C1-9186F7F7D70D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -297,6 +303,7 @@ Global
 		{6CB352AA-1939-4511-9DDA-407CF1F7F0DE} = {23935B36-8D12-4FD4-BFE6-A3D78997BFE7}
 		{58D1E7BC-4E0A-4EDA-B650-AD73FF64E359} = {23935B36-8D12-4FD4-BFE6-A3D78997BFE7}
 		{28FFD600-AFD2-48DF-9267-9C32F52CBE66} = {42B80275-E823-4A8B-A722-EE9488E53732}
+		{7879D158-5910-453F-95C1-9186F7F7D70D} = {42B80275-E823-4A8B-A722-EE9488E53732}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84A776AD-5CD1-4264-96E1-055F2EE0A432}
