@@ -64,35 +64,25 @@ internal class Program
 
     static void ShowMenu()
     {
-        PrintBetweenColor("\t\t[1] ");
-        Console.WriteLine("Add integer");
+        PrintBetweenColor("\t\t[1] ", "Add integer\n");
 
-        PrintBetweenColor("\t\t[2] ");
-        Console.WriteLine("Remove integer");
+        PrintBetweenColor("\t\t[2] ", "Remove integer\n");
 
-        PrintBetweenColor("\t\t[3] ");
-        Console.WriteLine("Check if they're equal");
+        PrintBetweenColor("\t\t[3] ", "Check if they're equal\n");
 
-        PrintBetweenColor("\t\t[4] ");
-        Console.WriteLine("Get bigger from queue");
+        PrintBetweenColor("\t\t[4] ", "Get bigger from queue\n");
 
-        PrintBetweenColor("\t\t[5] ");
-        Console.WriteLine("Get minor from queue");
+        PrintBetweenColor("\t\t[5] ", "Get minor from queue\n");
 
-        PrintBetweenColor("\t\t[6] ");
-        Console.WriteLine("Get arithmetic mean from queue");
+        PrintBetweenColor("\t\t[6] ", "Get arithmetic mean from queue\n");
 
-        PrintBetweenColor("\t\t[7] ");
-        Console.WriteLine("Transfer integers from a queue to it's auxiliar");
+        PrintBetweenColor("\t\t[7] ", "Transfer integers from a queue to it's auxiliar\n");
 
-        PrintBetweenColor("\t\t[8] ");
-        Console.WriteLine("Get odd from queue");
+        PrintBetweenColor("\t\t[8] ", "Get odd from queue\n");
 
-        PrintBetweenColor("\t\t[9] ");
-        Console.WriteLine("Get even from queue");
+        PrintBetweenColor("\t\t[9] ", "Get even from queue\n");
 
-        PrintBetweenColor("\t\t[0] ");
-        Console.WriteLine("Exit");
+        PrintBetweenColor("\t\t[0] ", "Exit\n");
     }
 
     static int GetMenuOption()
