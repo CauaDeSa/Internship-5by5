@@ -91,12 +91,16 @@ internal class Program
 
         do
         {
-            ClearScreen();
-            ShowMenu();
-            PrintBetweenColor("\n\t\tOption: ");
-            command = Console.ReadLine();
+            do
+            {
+                ClearScreen();
+                ShowMenu();
+                PrintBetweenColor("\n\t\tOption: ");
+                command = Console.ReadLine();
 
-        } while (!int.TryParse(command, out result) && (result < 0 || result > 9));
+            } while (!int.TryParse(command, out result));
+
+        } while ( result< 0 || result> 9 );
 
         return result;
     }
