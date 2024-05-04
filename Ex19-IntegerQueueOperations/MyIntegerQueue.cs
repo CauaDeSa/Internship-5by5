@@ -1,43 +1,53 @@
-﻿namespace Ex18_IntegerStackOperations
+﻿namespace Ex19_IntegerQueueOperations
 {
-    internal class MyIntegerStack
+    internal class MyIntegerQueue
     {
-        MyInteger? head;
+        MyInteger head;
+        MyInteger tail;
         string type;
         int size;
 
-        public MyIntegerStack(string type)
+        public MyIntegerQueue(string type)
         {
-            head = null;
-            size = 0;
+            this.head = null;
+            this.tail = null;
             this.type = type;
+            this.size = 0;
         }
 
-        public void Push(MyInteger newInteger)
+        public bool IsEmpty() { return head == null; }
+
+        public void Insert(MyInteger p)
         {
+            if (!IsEmpty())
+            {
+                tail.SetNext(p);
+            }
+            else
+                head = p;
+
             size++;
-            newInteger.SetNext(head);
-            this.head = newInteger;
+            tail = p;
         }
 
-        public MyInteger Pop()
+        public MyInteger Remove()
         {
-            MyInteger aux = head;
+            MyInteger? removed = head;
 
             if (!IsEmpty())
             {
                 size--;
                 head = head.GetNext();
             }
+            else 
+                tail = null;
 
-            return aux;
+            return removed;
         }
 
         public int GetSize() { return size; }
 
         public string GetType() { return type; }
-
-        public bool IsEmpty() { return head == null; }
 
         public MyInteger GetMinor()
         {
@@ -108,7 +118,7 @@
                 current = head;
                 do
                 {
-                    if((param == 1) && current.GetValue() % 2 != 0)
+                    if ((param == 1) && current.GetValue() % 2 != 0)
                         type[typeQuantity++] = current;
 
                     if ((param == 2) && current.GetValue() % 2 == 0)

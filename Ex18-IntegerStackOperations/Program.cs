@@ -48,62 +48,40 @@ internal class Program
 
         SetForegroundColor();
         Console.Clear();
-        Console.WriteLine("\t\t  _____                              _         ____                        \r\n\t\t |  __ \\                            (_)       / __ \\                       \r\n\t\t | |  | |_   _ _ __   __ _ _ __ ___  _  ___  | |  | |_   _  ___ _   _  ___ \r\n\t\t | |  | | | | | '_ \\ / _` | '_ ` _ \\| |/ __| | |  | | | | |/ _ \\ | | |/ _ \\\r\n\t\t | |__| | |_| | | | | (_| | | | | | | | (__  | |__| | |_| |  __/ |_| |  __/\r\n\t\t |_____/ \\__, |_| |_|\\__,_|_| |_| |_|_|\\___|  \\___\\_\\\\__,_|\\___|\\__,_|\\___|\r\n\t\t          __/ |                                                            \r\n\t\t         |___/                                                             \n");
+        Console.WriteLine(@"
+                       _____                              _         _____ _             _    
+                      |  __ \                            (_)       / ____| |           | |   
+                      | |  | |_   _ _ __   __ _ _ __ ___  _  ___  | (___ | |_ __ _  ___| | __
+                      | |  | | | | | '_ \ / _` | '_ ` _ \| |/ __|  \___ \| __/ _` |/ __| |/ /
+                      | |__| | |_| | | | | (_| | | | | | | | (__   ____) | || (_| | (__|   < 
+                      |_____/ \__, |_| |_|\__,_|_| |_| |_|_|\___| |_____/ \__\__,_|\___|_|\_\
+                              __/ |                                                         
+                             |___/ " + "\n");
 
         Console.ResetColor();
     }
 
     static void ShowMenu()
     {
-        SetForegroundColor();
-        Console.Write("\t\t[1] ");
-        Console.ResetColor();
-        Console.WriteLine("Add integer");
+        PrintBetweenColor("\t\t[1] ", "Add integer\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[2] ");
-        Console.ResetColor();
-        Console.WriteLine("Remove integer");
+        PrintBetweenColor("\t\t[2] ", "Remove integer\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[3] ");
-        Console.ResetColor();
-        Console.WriteLine("Check if they're equal");
+        PrintBetweenColor("\t\t[3] ", "Check if they're equal\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[4] ");
-        Console.ResetColor();
-        Console.WriteLine("Get bigger from stack");
+        PrintBetweenColor("\t\t[4] ", "Get bigger from stack\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[5] ");
-        Console.ResetColor();
-        Console.WriteLine("Get minor from stack");
+        PrintBetweenColor("\t\t[5] ", "Get minor from stack\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[6] ");
-        Console.ResetColor();
-        Console.WriteLine("Get arithmetic mean from stack");
+        PrintBetweenColor("\t\t[6] ", "Get arithmetic mean from stack\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[7] ");
-        Console.ResetColor();
-        Console.WriteLine("Transfer integers from a stack to it's auxiliar");
+        PrintBetweenColor("\t\t[7] ", "Transfer integers from a stack to it's auxiliar\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[8] ");
-        Console.ResetColor();
-        Console.WriteLine("Get odd from stack");
+        PrintBetweenColor("\t\t[8] ", "Get odd from stack\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[9] ");
-        Console.ResetColor();
-        Console.WriteLine("Get even from stack");
+        PrintBetweenColor("\t\t[9] ", "Get even from stack\n");
 
-        SetForegroundColor();
-        Console.Write("\t\t[0] ");
-        Console.ResetColor();
-        Console.WriteLine("Exit");
+        PrintBetweenColor("\t\t[0] ", "Exit\n");
     }
 
     static int GetMenuOption()
@@ -135,11 +113,9 @@ internal class Program
                 ClearScreen();
                 Console.WriteLine("\t\tChoose the stack");
 
-                PrintBetweenColor("\n\t\t[1] ");
-                Console.WriteLine(firstOption.GetType());
+                PrintBetweenColor("\n\t\t[1] ", $"{firstOption.GetType()}\n");
 
-                PrintBetweenColor("\t\t[2] ");
-                Console.WriteLine(secondOption.GetType());
+                PrintBetweenColor("\t\t[2] ", $"{secondOption.GetType()}\n");
 
                 PrintBetweenColor("\n\t\tOption: ");
                 command = Console.ReadLine();
