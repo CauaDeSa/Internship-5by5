@@ -45,7 +45,7 @@ internal class Program
 
         if (theme == 5)
             theme = 0;
-
+        
         SetForegroundColor();
         Console.Clear();
         Console.WriteLine(@"
