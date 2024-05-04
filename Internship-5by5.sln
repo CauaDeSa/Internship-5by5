@@ -97,6 +97,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex18-IntegerStackOperations
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex19-IntegerQueueOperations", "Ex19-IntegerQueueOperations\Ex19-IntegerQueueOperations.csproj", "{7879D158-5910-453F-95C1-9186F7F7D70D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex20-FibonacciStack", "Ex20-FibonacciStack\Ex20-FibonacciStack.csproj", "{1E4FB100-C8B9-4A61-AD57-8399CD1FB43E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -255,6 +257,10 @@ Global
 		{7879D158-5910-453F-95C1-9186F7F7D70D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7879D158-5910-453F-95C1-9186F7F7D70D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7879D158-5910-453F-95C1-9186F7F7D70D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E4FB100-C8B9-4A61-AD57-8399CD1FB43E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E4FB100-C8B9-4A61-AD57-8399CD1FB43E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E4FB100-C8B9-4A61-AD57-8399CD1FB43E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E4FB100-C8B9-4A61-AD57-8399CD1FB43E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -304,6 +310,7 @@ Global
 		{58D1E7BC-4E0A-4EDA-B650-AD73FF64E359} = {23935B36-8D12-4FD4-BFE6-A3D78997BFE7}
 		{28FFD600-AFD2-48DF-9267-9C32F52CBE66} = {42B80275-E823-4A8B-A722-EE9488E53732}
 		{7879D158-5910-453F-95C1-9186F7F7D70D} = {42B80275-E823-4A8B-A722-EE9488E53732}
+		{1E4FB100-C8B9-4A61-AD57-8399CD1FB43E} = {42B80275-E823-4A8B-A722-EE9488E53732}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84A776AD-5CD1-4264-96E1-055F2EE0A432}
