@@ -5,12 +5,14 @@ namespace Ex18_IntegerStackOperations
     internal class MyIntegerStack
     {
         MyInteger? head;
+        string type;
         int size;
 
-        public MyIntegerStack()
+        public MyIntegerStack(string type)
         {
             head = null;
             size = 0;
+            this.type = type;
         }
 
         public void Push(MyInteger newInteger)
@@ -34,6 +36,8 @@ namespace Ex18_IntegerStackOperations
         }
 
         public int GetSize() { return size; }
+
+        public string GetType() { return type; }
 
         public bool IsEmpty() { return head == null; }
 
@@ -118,8 +122,8 @@ namespace Ex18_IntegerStackOperations
 
             MyInteger[] fittedTypeVector = new MyInteger[typeQuantity];
 
-            while (typeQuantity-- > 0)
-                fittedTypeVector[typeQuantity] = type[typeQuantity];
+            for (int index = 0, aux = typeQuantity; index < typeQuantity; index++)
+                fittedTypeVector[index] = type[aux--];
 
             return fittedTypeVector;
         }
