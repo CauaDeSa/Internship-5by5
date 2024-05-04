@@ -26,6 +26,19 @@ internal class Program
         }
     }
 
+    static void PrintBetweenColor(string message)
+    {
+        SetForegroundColor();
+        Console.Write(message);
+        Console.ResetColor();
+    }
+
+    static void PrintBetweenColor(string toColor, string message)
+    {
+        PrintBetweenColor(toColor);
+        Console.Write(message);
+    }
+
     static void ClearScreen()
     {
         theme++;
@@ -86,7 +99,7 @@ internal class Program
         Console.Write("\t\t[9] ");
         Console.ResetColor();
         Console.WriteLine("Get even from stack");
-        
+
         SetForegroundColor();
         Console.Write("\t\t[0] ");
         Console.ResetColor();
@@ -102,7 +115,7 @@ internal class Program
         {
             ClearScreen();
             ShowMenu();
-            Console.Write("\n\t\tOption: ");
+            PrintBetweenColor("\n\t\tOption: ");
             command = Console.ReadLine();
 
         } while (!int.TryParse(command, out result) && (result < 0 || result > 9));
@@ -110,7 +123,7 @@ internal class Program
         return result;
     }
 
-    static int SelectStack()
+    static MyIntegerStack SelectStack(MyIntegerStack firstOption, MyIntegerStack secondOption)
     {
         string command;
         int result;
@@ -122,25 +135,19 @@ internal class Program
                 ClearScreen();
                 Console.WriteLine("\t\tChoose the stack");
 
-                SetForegroundColor();
-                Console.Write("\n\t\t[1] ");
-                Console.ResetColor();
-                Console.WriteLine("First stack");
+                PrintBetweenColor("\n\t\t[1] ");
+                Console.WriteLine(firstOption.GetType());
 
-                SetForegroundColor();
-                Console.Write("\t\t[2] ");
-                Console.ResetColor();
-                Console.WriteLine("Second stack");
+                PrintBetweenColor("\t\t[2] ");
+                Console.WriteLine(secondOption.GetType());
 
-                SetForegroundColor();
-                Console.Write("\n\t\tOption: ");
-                Console.ResetColor();
+                PrintBetweenColor("\n\t\tOption: ");
                 command = Console.ReadLine();
 
             } while (!int.TryParse(command, out result));
         } while (result > 2 || result < 1);
 
-        return result;
+        return result == 1 ? firstOption : secondOption;
     }
 
     static MyInteger CreateMyInteger()
@@ -168,13 +175,13 @@ internal class Program
 
     private static void Main(string[] args)
     {
-        MyIntegerStack myFirstStack, mySecondStack, myAuxiliarStack;
+        MyIntegerStack myFirstStack, mySecondStack, myAuxiliarStack, stackChoosed;
         MyInteger aux;
-        int menuOption, value, stackChoosed;
+        int menuOption, value;
 
-        myFirstStack = new MyIntegerStack();
-        mySecondStack = new MyIntegerStack();
-        myAuxiliarStack = new MyIntegerStack();
+        myFirstStack = new MyIntegerStack("First stack");
+        mySecondStack = new MyIntegerStack("Second stack");
+        myAuxiliarStack = new MyIntegerStack("Auxiliar stack");
 
         MockData(myFirstStack);
         MockData(mySecondStack);
@@ -190,195 +197,113 @@ internal class Program
             switch (menuOption)
             {
                 case 1:
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        myFirstStack.Push(CreateMyInteger());
+                    stackChoosed.Push(CreateMyInteger());
 
-                    else
-                        mySecondStack.Push(CreateMyInteger());
-
-                    SetForegroundColor();
-                    Console.WriteLine($"\n\t\tValue added to {(stackChoosed == 1 ? "first stack" : "second stack")}");
-                    Console.ResetColor();
+                    PrintBetweenColor($"\n\t\tValue added to {stackChoosed.GetType()}\n");
                     break;
 
                 case 2:
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        aux = myFirstStack.Pop();
+                    aux = stackChoosed.Pop();
 
-                    else
-                        aux = mySecondStack.Pop();
-
-                    SetForegroundColor();
-                    
                     if (aux != null)
-                    {
-                        Console.Write($"\n\t\tPoped: ");
-                        Console.ResetColor();
-                        Console.WriteLine(aux);
-                    }
+                        PrintBetweenColor($"\n\t\tPoped: ", $"{aux}\n");
                     else
-                    {
-                        Console.Write($"\n\t\t{(stackChoosed == 1 ? "First stack" : "Second stack")} ");
-                        Console.ResetColor();
-                        Console.WriteLine("is empty!");
-                    }
+                        PrintBetweenColor($"\n\t\t{stackChoosed.GetType()} ", "is empty!\n");
                     break;
 
                 case 3:
-                    SetForegroundColor();
-
                     if (myFirstStack.GetSize() > mySecondStack.GetSize())
-                        Console.WriteLine($"\n\t\tStack 1 is bigger!");
+                        PrintBetweenColor($"\n\t\tStack 1 is bigger!\n");
                     else if (myFirstStack.GetSize() == mySecondStack.GetSize())
-                            Console.WriteLine($"\n\t\tThey're equal!");
-                        else 
-                            Console.WriteLine("\n\t\tStack 2 is bigger!");
-
-                    Console.ResetColor();
+                        PrintBetweenColor($"\n\t\tThey're equal!\n");
+                    else
+                        PrintBetweenColor("\n\t\tStack 2 is bigger!\n");
                     break;
 
                 case 4:
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        aux = myFirstStack.GetBigger();
-                    else
-                        aux = mySecondStack.GetBigger();
-                    
-                    SetForegroundColor();
-                    
+                    aux = stackChoosed.GetBigger();
+
                     if (aux != null)
-                    {
-                        Console.Write($"\n\t\t{aux}");
-                        Console.ResetColor();
-
-                        Console.WriteLine($" is the biggest number of the {((stackChoosed == 1) ? "first" : "second")} stack!");
-                    }
+                        PrintBetweenColor($"\n\t\t{aux}", $" is the biggest number of the {stackChoosed.GetType()}!\n");
                     else
-                    {
-                        Console.WriteLine("\n\t\tThis stack is empty!");
-                        Console.ResetColor();
-                    }
-
+                        PrintBetweenColor("\n\t\tThis stack is empty!");
                     break;
 
                 case 5:
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        aux = myFirstStack.GetMinor();
-                    else
-                        aux = mySecondStack.GetMinor();
+                    aux = stackChoosed.GetMinor();
 
                     SetForegroundColor();
 
                     if (aux != null)
-                    {
-                        Console.Write($"\n\t\t{aux}");
-                        Console.ResetColor();
-
-                        Console.WriteLine($" is the minnor number of the {((stackChoosed == 1) ? "first" : "second")} stack!");
-                    }
+                        PrintBetweenColor($"\n\t\t{aux}", $" is the minnor number of the {stackChoosed.GetType()}!\n");
                     else
-                    {
-                        Console.WriteLine("\n\t\tThis stack is empty!");
-                        Console.ResetColor();
-                    }
-
+                        PrintBetweenColor("\n\t\tThis stack is empty!");
                     break;
-            
+
                 case 6:
-                    SetForegroundColor();
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        value = myFirstStack.GetArithmeticMean();
-                    else
-                        value = mySecondStack.GetArithmeticMean();
+                    value = stackChoosed.GetArithmeticMean();
 
-                    SetForegroundColor();
-                    Console.Write($"\n\t\t{value}");
-                    Console.ResetColor();
-
-                    Console.WriteLine($" is the arithmethic mean of the {((stackChoosed == 1) ? "first" : "second")} stack!");
-
-                    Console.ResetColor();
+                    PrintBetweenColor($"\n\t\t{value}", $" is the arithmethic mean of the {stackChoosed.GetType()}!\n");
                     break;
 
                 case 7:
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        while (!myFirstStack.IsEmpty())
-                            myAuxiliarStack.Push(myFirstStack.Pop());
+                    if (!stackChoosed.IsEmpty())
+                    {
+                        while (!stackChoosed.IsEmpty())
+                            myAuxiliarStack.Push(stackChoosed.Pop());
 
+                        Console.Write("\n\t\tIntegers successfully transferred from ");
+                        PrintBetweenColor($"{stackChoosed.GetType()}\n");
+                    }
                     else
-                        while (!mySecondStack.IsEmpty())
-                            myAuxiliarStack.Push(mySecondStack.Pop());
-
-                    Console.Write("\n\t\tIntegers successfully transferred from ");
-
-                    SetForegroundColor();
-                    Console.WriteLine($"{((stackChoosed == 1) ? "first stack" : "second stack")}");
-                    Console.ResetColor();
+                        PrintBetweenColor("\n\t\tThis stack is empty!\n");
                     break;
 
                 case 8:
                     MyInteger[] odds;
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        odds = myFirstStack.GetOdds();
+                    odds = stackChoosed.GetOdds();
 
-                    else
-                        odds = mySecondStack.GetOdds();
-
-                    SetForegroundColor();
                     if (odds.Length != 0)
                     {
-                        Console.WriteLine($"\n\t\t{(stackChoosed == 1 ? "First stack" : "Second stack")} odds: \n");
+                        PrintBetweenColor($"\n\t\t{stackChoosed.GetType()} odds: \n");
 
                         for (int index = 0; index < odds.Length; index++)
-                            Console.WriteLine($"\t\t{odds[index]}");
+                            PrintBetweenColor($"\t\t{odds[index]}\n");
                     }
                     else
-                    {
-                        Console.WriteLine("\n\t\tThis stack is empty!");
-                    }
-
-                    Console.ResetColor();
+                        PrintBetweenColor("\n\t\tThis stack is empty!\n");
                     break;
 
                 case 9:
                     MyInteger[] evens;
 
-                    SetForegroundColor();
-                    stackChoosed = SelectStack();
+                    stackChoosed = SelectStack(myFirstStack, mySecondStack);
 
-                    if (stackChoosed == 1)
-                        evens = myFirstStack.GetEvens();
+                    evens = stackChoosed.GetEvens();
 
-                    else
-                        evens = mySecondStack.GetEvens();
-
-                    SetForegroundColor();
                     if (evens.Length != 0)
                     {
-                        Console.WriteLine($"\n\t\t{(stackChoosed == 1 ? "First stack" : "Second stack")} evens: \n");
+                        PrintBetweenColor($"\n\t\t{stackChoosed.GetType()} evens: \n");
 
                         for (int index = 0; index < evens.Length; index++)
-                            Console.WriteLine($"\t\t{evens[index]}");
+                            PrintBetweenColor($"\t\t{evens[index]}\n");
                     }
                     else
-                    {
-                        Console.WriteLine("\n\t\tThis stack is empty!");
-                    }
-
-                    Console.ResetColor();
+                        PrintBetweenColor("\n\t\tThis stack is empty!\n");
                     break;
             }
 
