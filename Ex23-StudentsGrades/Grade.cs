@@ -5,16 +5,15 @@
         float grade;
         int studentId;
         Grade? next;
-
-        public Grade? GetNext() { return this.next; }
-
-        public void SetNext(Grade? value) { this.next = value; }
-
         public Grade(float grade, int studentId)
         {
             this.grade = grade;
             this.studentId = studentId;
         }
+
+        public Grade? GetNext() { return this.next; }
+
+        public void SetNext(Grade? value) { this.next = value; }
 
         public int GetId() { return studentId; }
 

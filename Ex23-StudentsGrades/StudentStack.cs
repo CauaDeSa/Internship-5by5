@@ -34,5 +34,21 @@
         public int GetSize() { return size; }
 
         public bool IsEmpty() { return head == null; }
+        public StudentStack GetCopy()
+        {
+            StudentStack copy = new StudentStack();
+            Student walker = head;
+
+            if (!IsEmpty())
+            {
+                do
+                {
+                    copy.Push(new Student(walker.GetName(), walker.GetStudentId()));
+                    walker = walker.GetNext();
+                } while (walker != null);
+            }
+
+            return copy;
+        }
     }
 }

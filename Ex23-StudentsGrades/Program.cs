@@ -1,9 +1,10 @@
 ﻿using Ex23_StudentsGrades;
+using System.Xml.Linq;
 
 internal class Program
 {
     static int theme = (new Random()).Next(-1, 3);
-    static int studentIdCounter = 1;
+    static int studentIdCounter = 0;
 
     static void SetForegroundColor()
     {
@@ -89,19 +90,168 @@ internal class Program
         return value;
     }
 
-    static Student CreateStudent()
+    static int GetValue(string message, int max)
     {
-        Student b;
-        string name;
+        string input;
+        int id;
 
         do
         {
             ClearScreen();
-            Console.Write("\t\tStudent name: ");
-            name = Console.ReadLine();
-        } while (string.IsNullOrWhiteSpace(name));
+            PrintBetweenColor($"\n\t\t{message}: ");
+            input = Console.ReadLine();
 
-        return new Student(name, studentIdCounter++);
+        } while (!int.TryParse(input, out id));
+
+        return id;
+    }
+
+    static string GetString(string message)
+    {
+        string input;
+
+        do
+        {
+            ClearScreen();
+            Console.Write($"\t\t{message}: ");
+            input = Console.ReadLine();
+        } while (string.IsNullOrWhiteSpace(input));
+
+        return input;
+    }
+
+    static Student CreateStudent()
+    {
+        return new Student(GetString("Student name"), ++studentIdCounter);
+    }
+
+    static Grade CreateGrade(int id)
+    {
+        string command;
+        int value;
+
+        do
+        {
+            do
+            {
+                ClearScreen();
+                PrintBetweenColor($"\n\t\tType grade: ");
+                command = Console.ReadLine();
+
+            } while (!int.TryParse(command, out value));
+
+        } while (value < 0 || value > 10);
+
+        return new Grade(value, id);
+    }
+
+    static Student GetStudent(StudentStack stack, int id)
+    {
+        Student ?student = null;
+
+        if (!stack.IsEmpty())
+        {
+            while (!stack.IsEmpty())
+            {
+                student = stack.Pop();
+
+                if (student.GetStudentId() == id)
+                    break;  
+            }
+        }
+
+        return student;
+    }
+
+    static int HasGrades(GradesQueue gradesQueue, int id)
+    {
+        int gradesCounter = 0;
+
+        if (!gradesQueue.IsEmpty())
+        {
+            GradesQueue auxQueue = gradesQueue.GetCopy();
+
+            while (!auxQueue.IsEmpty())
+            {
+                if (auxQueue.Remove().GetId() == id)
+                {
+                    gradesCounter++;
+
+                    if (gradesCounter == 2)
+                        break;
+                }
+            }
+        }
+
+        return gradesCounter;
+    }
+
+    static int HasGrades(GradesQueue gradesQueue, int id, Grade[] studentGrades)
+    {
+        int gradesCounter = 0;
+        Grade gradeAux;
+
+        if (!gradesQueue.IsEmpty())
+        {
+            while (!gradesQueue.IsEmpty())
+            {
+                gradeAux = gradesQueue.Remove();
+
+                if (gradeAux.GetId() == id)
+                {
+                    studentGrades[gradesCounter++] = gradeAux;
+
+                    if (gradesCounter == 2)
+                        break;
+                }
+            }
+        }
+
+        return gradesCounter;
+    }
+
+    static bool IsValid(int idChoosed)
+    {
+        return idChoosed >= 1 && idChoosed <= studentIdCounter;
+    }
+
+    static StudentStack GetStudentsWithoutGrades(GradesQueue gradesQueue, StudentStack studentStack)
+    {
+        int gradesCounter;
+        int studentsQuantity = 0; 
+        
+        GradesQueue gradesQueueAux;
+        Student[] students = new Student[studentStack.GetSize()];
+        Student studentAux;
+
+        if (!studentStack.IsEmpty())
+        {
+            while (!studentStack.IsEmpty())
+            {
+                studentAux = studentStack.Pop();
+
+                gradesQueueAux = gradesQueue;
+
+                gradesCounter = 0;
+
+                while (!gradesQueueAux.IsEmpty())
+                {
+                    if (studentAux.GetStudentId() == gradesQueueAux.Remove().GetId())
+                        gradesCounter++;
+                }
+
+                if (gradesCounter == 0)
+                    students[studentsQuantity++] = studentAux;
+            }
+
+        }
+
+        StudentStack fittedStack = new StudentStack();
+
+        for (int index = 0, aux = studentsQuantity; index < studentsQuantity; index++)
+            fittedStack.Push(students[--aux]);
+
+        return fittedStack;
     }
 
     private static void Main(string[] args)
@@ -109,12 +259,9 @@ internal class Program
         StudentStack studentStack = new StudentStack();
         StudentStack studentAuxStack;
 
-        Student studentAux;
-
         GradesQueue gradesQueue = new GradesQueue();
-        GradesQueue gradesAuxQueue;
 
-        Grade[] studentGrades = new Grade[2];
+        Grade[] studentGrades;
         int command, idChoosed;
 
         do
@@ -126,46 +273,49 @@ internal class Program
 
             switch (command)
             {
-            //PrintBetweenColor("\t\t[5] ", "Remove student\n");
-            //PrintBetweenColor("\t\t[6] ", "Remove grade\n");
-            //PrintBetweenColor("\t\t[0] ", "Exit\n");
                 case 1:
                     studentStack.Push(CreateStudent());
                     PrintBetweenColor("\n\t\tStudent successfully registered!\n");
                     break;
 
                 case 2:
-                    idChoosed = GetValue("Type student id", 1, 1);
+                    idChoosed = GetValue("Type student id", studentIdCounter);
 
                     if (IsValid(idChoosed))
                     {
-                        if (!HasAllGrades(gradesQueue, idChoosed))
+                        if (HasGrades(gradesQueue.GetCopy(), idChoosed) < 2)
                         {
-                            gradesQueue.Insert(CreateGrade());
+                            gradesQueue.Insert(CreateGrade(idChoosed));
                             PrintBetweenColor("\n\t\tGrade successfully registered\n");
                         }
                         else
                             PrintBetweenColor("\n\t\tThis student already has 2 grades!\n");
                     }
                     else
-                        PrintBetweenColor("\n\t\tThis id isn't valid!\n");
+                        PrintBetweenColor("\n\t\tWe don't have a student with that id!\n");
 
                     break;
 
                 case 3:
-                    idChoosed = GetValue("Type student id", 1, 1);
+                    idChoosed = GetValue("Type student id", studentIdCounter);
 
-                    if (HasAllGrades(gradesQueue, idChoosed, studentGrades))
+                    if (IsValid(idChoosed))
                     {
-                        PrintBetweenColor($"\n\t\t{GetStudent(idChoosed).GetName}", " average: ");
-                        PrintBetweenColor($"{(studentGrades[0].GetGrade() + studentGrades[1].GetGrade()) / 2}\n");
+                         studentGrades = new Grade[2];
+                        if (HasGrades(gradesQueue.GetCopy(), idChoosed, studentGrades) == 2)
+                        {
+                            PrintBetweenColor($"\n\t\t{GetStudent(studentStack.GetCopy(), idChoosed).GetName()}", " average: ");
+                            PrintBetweenColor($"{(studentGrades[0].GetGrade() + studentGrades[1].GetGrade()) / 2}\n");
+                        }
+                        else
+                            PrintBetweenColor("\n\t\tThis student don't have all grades registered.\n");
                     }
                     else
-                        PrintBetweenColor("\n\t\tThis student don't have all grades registered.\n");
+                        PrintBetweenColor("\n\t\tWe don't have a student with that id!\n");
                     break;
 
                 case 4:
-                    studentAuxStack = GetStudentsWithoutGrades(gradesQueue);
+                    studentAuxStack = GetStudentsWithoutGrades(gradesQueue.GetCopy(), studentStack.GetCopy());
 
                     if (studentAuxStack.IsEmpty())
                         PrintBetweenColor("\n\t\tThere are no students whitout grades!\n");
@@ -178,11 +328,24 @@ internal class Program
                     break;
 
                 case 5:
-
+                    if (studentIdCounter != 0)
+                    {
+                        if (HasGrades(gradesQueue.GetCopy(), studentIdCounter) == 0)
+                            PrintBetweenColor($"\n\t\t{studentStack.Pop()} successfully removed!\n");
+                        else
+                            PrintBetweenColor("\n\t\tThis student can not be removed, he has grades!\n");
+                    }
+                    else
+                        PrintBetweenColor("\n\t\tThere are no students to remove!\n");
                     break;
 
                 case 6:
+                    Grade aux = gradesQueue.Remove();
 
+                    if (aux != null)
+                        PrintBetweenColor($"\n\t\t{aux}", $" from id: {aux.GetId()} successfully removed\n");
+                    else
+                        PrintBetweenColor("\n\t\tThere are no grades to remove!\n");
                     break;
             }
 
