@@ -117,7 +117,7 @@
 
             while (walker != null)
             {
-                message += $"\n{walker}";
+                message += $"{walker}\n";
                 walker = walker.GetNext();
             }
 
