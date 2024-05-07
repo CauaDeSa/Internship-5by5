@@ -310,6 +310,8 @@ internal class Program
                 }
 
             } while (menuOption != 0);
+
+            PrintBetweenColor("\n\t\t\t     Operation cancelled!\n");
         }
         else
             PrintBetweenColor("\n\t\t\t\tPerson not found!\n");
@@ -337,11 +339,12 @@ internal class Program
             {
                 Person aux = copiedList.Remove();
 
+                PrintBetweenColor("\n\t\t\t           Info               ");
                 Console.WriteLine($"\n\t\t\t   Name..............: {aux.GetName()}" +
                                   $"\n\t\t\t   Email.............: {aux.GetEmail()}");
                 PrintBetweenColor("\n\t\t\t           Phones               ");
                 Console.WriteLine(aux.GetPhones().ToString());
-                PrintBetweenColor("\n\t\t\t          Address           \n");
+                PrintBetweenColor("\t\t\t          Address           ");
                 Console.WriteLine(aux.GetAddress().ToString());
 
 
@@ -350,7 +353,7 @@ internal class Program
         }
         else 
             PrintBetweenColor("\n\t\t     You don't have persons registered!\n");
-    }
+        }
 
     static void ShowRegisteredPerson(PersonList persons)
     {
@@ -358,11 +361,12 @@ internal class Program
 
         if (aux != null) 
         {
+            PrintBetweenColor("\n\t\t\t           Info               ");
             Console.WriteLine($"\n\t\t\t   Name..............: {aux.GetName()}" +
                               $"\n\t\t\t   Email.............: {aux.GetEmail()}");
             PrintBetweenColor("\n\t\t\t           Phones               ");
             Console.WriteLine(aux.GetPhones().ToString());
-            PrintBetweenColor("\n\t\t\t          Address           ");
+            PrintBetweenColor("\t\t\t          Address           ");
             Console.WriteLine(aux.GetAddress().ToString());
         }
         else
@@ -387,7 +391,7 @@ internal class Program
             {
                 case 1:
                     RegisterPerson(persons);
-                    break;  
+                    break;
 
                 case 2:
                     EditPerson(persons.GetByName(GetString("edit person", "Type person name")));
