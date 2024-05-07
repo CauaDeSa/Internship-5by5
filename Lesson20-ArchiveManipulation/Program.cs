@@ -1,8 +1,7 @@
-﻿internal class Program
+internal class Program
 {
     private static void Main(string[] args)
     {
-        //string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Data\\";
         string path = @"C:\Data\Week-04\Lesson20\";
         string file = "archive.txt";
 
@@ -38,7 +37,6 @@
         Console.WriteLine(reader.ReadToEnd());
 
         reader.Close();
-
 
         //Console.WriteLine(File.ReadLines(path + file).ElementAt(2));
         Console.ReadKey();
