@@ -515,10 +515,10 @@ internal class Program
                 Console.WriteLine();
                 int index = 0;
 
-                Console.WriteLine("\t\t[0] Cancel");
+                PrintBetweenColor("\t\t[0]", " Cancel\n");
 
                 foreach (var person in personList.GetAll())
-                    Console.WriteLine($"\t\t[{++index}] {person.Name}");
+                    PrintBetweenColor($"\t\t[{++index}]", $" {person.Name}\n");
 
                 Console.Write($"\n\t\tSelect a name by a valid index: ");
                 command = Console.ReadLine();
