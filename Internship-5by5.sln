@@ -119,11 +119,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex25-PhoneBook", "Ex25-Phon
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson20-ArchiveManipulation", "Lesson20-ArchiveManipulation\Lesson20-ArchiveManipulation.csproj", "{A98D93DA-F2BF-43F9-AC4E-76C5C7D15808}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson21-ProductRegister", "Lesson21-ProductRegister\Lesson21-ProductRegister.csproj", "{77646438-825E-4C10-AE95-61B5BB68EBFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson21-ProductRegister", "Lesson21-ProductRegister\Lesson21-ProductRegister.csproj", "{77646438-825E-4C10-AE95-61B5BB68EBFB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex26-ArchiveManipulation", "Ex26-ArchiveManipulation\Ex26-ArchiveManipulation.csproj", "{1B84DCE5-176B-496C-A03E-657CE9FC1B38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex26-ArchiveManipulation", "Ex26-ArchiveManipulation\Ex26-ArchiveManipulation.csproj", "{1B84DCE5-176B-496C-A03E-657CE9FC1B38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ex27-PhoneBookPersistence", "Ex27-PhoneBookPersistence\Ex27-PhoneBookPersistence.csproj", "{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex27-PhoneBookPersistence", "Ex27-PhoneBookPersistence\Ex27-PhoneBookPersistence.csproj", "{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson22-TryCatch", "Lesson22-TryCatch\Lesson22-TryCatch.csproj", "{5D104855-782D-4EF3-ABAC-24CCDED6EFBC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson23-FileStreamTryCatch", "Lesson23-FileStreamTryCatch\Lesson23-FileStreamTryCatch.csproj", "{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -327,6 +331,14 @@ Global
 		{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D104855-782D-4EF3-ABAC-24CCDED6EFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D104855-782D-4EF3-ABAC-24CCDED6EFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D104855-782D-4EF3-ABAC-24CCDED6EFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D104855-782D-4EF3-ABAC-24CCDED6EFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -389,6 +401,8 @@ Global
 		{77646438-825E-4C10-AE95-61B5BB68EBFB} = {0F3B81C2-CD3F-4794-B278-CFB26A0CF4AF}
 		{1B84DCE5-176B-496C-A03E-657CE9FC1B38} = {53C4BF1B-BA5C-4891-BC2F-36ECD6572FA7}
 		{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D} = {53C4BF1B-BA5C-4891-BC2F-36ECD6572FA7}
+		{5D104855-782D-4EF3-ABAC-24CCDED6EFBC} = {0F3B81C2-CD3F-4794-B278-CFB26A0CF4AF}
+		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E} = {0F3B81C2-CD3F-4794-B278-CFB26A0CF4AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84A776AD-5CD1-4264-96E1-055F2EE0A432}
