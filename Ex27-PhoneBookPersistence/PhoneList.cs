@@ -45,21 +45,31 @@
             return false;
         }
 
-        public List<Phone> GetPhoneListById(int id) 
+        public Phone? GetPhoneByIndex(int index)
         {
-            List<Phone> phones = new();
+            int pos = 0;
 
+            foreach (var phone in list)
+            {
+                if (pos++ == index)
+                    return phone;
+            }
+
+            return null;
+        }
+
+        public Phone? GetPhoneByNumber(string phoneNumber) 
+        {
             if (list.Count != 0)
             {
-
                 foreach (var phone in list)
                 {
-                    if (phone.PersonId == id)
-                        phones.Add(phone);
+                    if (phone.PhoneNumber.Equals(phoneNumber))
+                        return phone;
                 }
             }
 
-            return phones;
+            return null;
         }
 
         public List<Phone> GetAll()

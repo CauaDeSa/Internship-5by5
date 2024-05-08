@@ -45,6 +45,30 @@
             return false;
         }
 
+        public Person? GetByName(string name)
+        {
+            foreach (var person in list)
+            {
+                if (person.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                    return person;
+            }
+
+            return null;
+        }
+
+        public Person? GetByIndex(int index)
+        {
+            int count = 0;
+
+            foreach (var person in list)
+            {
+                if (count++ == index)
+                    return person;
+            }
+
+            return null;
+        }
+
         public Person? GetById(int id)
         {
             if (list.Count != 0)

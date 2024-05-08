@@ -1,4 +1,7 @@
 ﻿using Ex27_PhoneBookPersistence;
+using Microsoft.VisualBasic.FileIO;
+using System;
+using System.Reflection;
 
 internal class Program
 {
@@ -179,48 +182,61 @@ internal class Program
         return check;
     }
 
-    static void SavePersons(List<Person> persons)
+    static void SavePersons(PersonList persons)
     {
+        persons.GetAll().Sort(new ObjectByNameComparer());
+
         if (CheckPathing(personFilePath))
         {
             StreamWriter writer = new(absolutePath + personFilePath);
+            AddressList addresses = new();
+            PhoneList phones = new();
 
-            foreach (var person in persons)
-                writer.WriteLine(person);
+            foreach (var person in persons.GetAll())
+            {
+                writer.WriteLine(person.FormatToSave());
+                addresses.Add(person.Address);
+                
+                foreach (var phone in person.Phones.GetAll())
+                    phones.Add(phone);
+            }
 
             writer.Close();
+            SaveAddresses(addresses);
+            SavePhones(phones);
         }
+
     }
 
-    static void SavePhones(List<Person> phones)
+    static void SavePhones(PhoneList phones)
     {
         if (CheckPathing(phoneFilePath))
         {
             StreamWriter writer = new(absolutePath + phoneFilePath);
 
-            foreach (var phone in phones)
-                writer.WriteLine(phone);
+            foreach (var phone in phones.GetAll())
+                writer.WriteLine(phone.FormatToSave());
 
             writer.Close();
         }
     }
 
-    static void SaveAddresses(List<Person> addresses)
+    static void SaveAddresses(AddressList addresses)
     {
         if (CheckPathing(addressFilePath))
         {
             StreamWriter writer = new(absolutePath + addressFilePath);
 
-            foreach (var address in addresses)
-                writer.WriteLine(address);
+            foreach (var address in addresses.GetAll())
+                writer.WriteLine(address.FormatToSave());
 
             writer.Close();
         }
     }
 
-    static List<Person> LoadPersons()
+    static PersonList LoadPersons()
     {
-        List<Person> persons = new();
+        PersonList persons = new();
 
         if (CheckPathing(personFilePath))
         {
@@ -231,14 +247,20 @@ internal class Program
                 person = line.Split(";");
                 persons.Add(new Person(int.Parse(person[0]), person[1], person[2]));
             }
+            
+            foreach (Address address in LoadAddresses().GetAll())
+                persons.GetById(address.PersonId).Address = address;
+
+            foreach (Phone phone in LoadPhones().GetAll())
+                persons.GetById(phone.PersonId).Phones.Add(phone);
         }
 
         return persons;
     }
 
-    static List<Phone> LoadPhones()
+    static PhoneList LoadPhones()
     {
-        List<Phone> phones = new();
+        PhoneList phones = new();
 
         if (CheckPathing(phoneFilePath))
         {
@@ -254,9 +276,9 @@ internal class Program
         return phones;
     }
 
-    static List<Address> LoadAddresses()
+    static AddressList LoadAddresses()
     {
-        List<Address> Addresses = new();
+        AddressList Addresses = new();
 
         if (CheckPathing(addressFilePath))
         {
@@ -272,18 +294,18 @@ internal class Program
         return Addresses;
     }
 
-    static int LoadIdCounter(List<Phone> phones)
+    static int LoadIdCounter(List<Person> persons)
     {
         int id = 0;
 
-        foreach (Phone phone in phones)
-            if (id < phone.PersonId)
-                id = phone.PersonId;
+        foreach (Person person in persons)
+            if (id < person.Id)
+                id = person.Id;
 
         return id + 1;
     }
 
-    static PhoneList PhonesRegister(int personId)
+    static PhoneList RegisterPhones(int personId)
     {
         PhoneList phones = new();
         string title = "phone register";
@@ -299,7 +321,7 @@ internal class Program
         return phones;
     }
 
-    static Address AddressRegister(int personId)
+    static Address RegisterAddress(int personId)
     {
         string title = "address register";
 
@@ -327,15 +349,20 @@ internal class Program
     {
         string title = "person register";
         
-        return new(personId, GetString(title, "Type name"), GetString(title, "Type email"), PhonesRegister(personId), AddressRegister(personId));
+        return new(personId, GetString(title, "Type name"), GetString(title, "Type email"), RegisterPhones(personId), RegisterAddress(personId));
     }
 
     static Person? EditPerson(Person person)
     {
+        Person? newPerson = null;
+
         if (person != null)
         {
-            int menuOption, addressOption;
+            newPerson = new(person.Id, person.Name, person.Email, person.Phones, person.Address);
+
+            int menuOption, auxOption;
             string title = "person edit";
+            string command;
 
             do
             {
@@ -345,72 +372,100 @@ internal class Program
                 {
                     case 1:
                         Console.Write($"\n\t\tCurrent name: ");
-                        PrintBetweenColor($"{person.Name}\n");
+                        PrintBetweenColor($"{newPerson.Name}\n");
                         Pause();
 
-                        person.Name = GetString(title, "new name");
+                        newPerson.Name = GetString(title, "new name");
                         break;
 
                     case 2:
-                        Console.WriteLine(person.Phones.ToString());
-                        Pause();
-
-                        if (person.RemovePhoneNumber(GetString(title, "type phone number to update")))
+                        if (!newPerson.Phones.IsEmpty())
                         {
-                            person.AddPhoneNumber(new Phone(person.Id, GetString(title, "type a new phone number")));
-                            PrintBetweenColor("\n\t\t\tPhone successfully updated!\n");
+                            int index = 0;
+
+                            do
+                            {
+                                do
+                                {
+                                    ClearScreen();
+                                    ShowTitle(title);
+
+                                    foreach (var phone in newPerson.Phones.GetAll())
+                                        Console.WriteLine($"\t\t[{++index}] {phone}");
+
+                                    Console.Write($"\n\t\tSelect a number by its index: ");
+                                    command = Console.ReadLine();
+
+                                } while (!int.TryParse(command, out auxOption));
+
+                            } while (auxOption < 1 || auxOption > person.Phones.GetAll().Count + 1);
+
+                            if (newPerson.Phones.Update(newPerson.Phones.GetPhoneByIndex(auxOption - 1), new Phone(newPerson.Id, GetString(title, "type a new phone number"))))
+                                PrintBetweenColor("\n\t\t\tPhone successfully updated!\n");
+                            else
+                                PrintBetweenColor("\n\t\t\tPhone not found!\n");
                         }
                         else
-                            PrintBetweenColor("\n\t\t\tPhone number not found!\n");
+                            PrintBetweenColor("\n\t\t\tPhone list is empty!\n");
                         break;
 
                     case 3:
-                        Address aux = person.Address;
+                        do
+                        {
+                            do
+                            {
+                                ClearScreen();
+                                ShowTitle(title);
+                                ShowMenu(3);
 
-                        Console.WriteLine(aux.ToString());
-                        Pause();
+                                Console.WriteLine(newPerson.Address.ToString());
 
-                        addressOption = GetMenu(title, "Option", 3, 0, 8);
+                                Console.Write($"\n\t\tOption: ");
+                                command = Console.ReadLine();
 
-                        switch (addressOption)
+                            } while (!int.TryParse(command, out auxOption));
+
+                        } while (auxOption < 0 || auxOption > 8);
+
+                        switch (auxOption)
                         {
                             case 1:
-                                aux.ZipCode = GetString(title, "Type a new zip-code"));
+                                newPerson.Address.ZipCode = GetString(title, "Type a new zip-code");
                                 PrintBetweenColor("\n\t\t\tZip-code successfully updated!\n");
                                 break;
 
                             case 2:
-                                aux.City = GetString(title, "Type a new city"));
+                                newPerson.Address.City = GetString(title, "Type a new city");
                                 PrintBetweenColor("\n\t\t\tCity successfully updated!\n");
                                 break;
 
                             case 3:
-                                aux.State = GetString(title, "Type a new state"));
+                                newPerson.Address.State = GetString(title, "Type a new state");
                                 PrintBetweenColor("\n\t\t\tState successfully updated!\n");
                                 break;
 
                             case 4:
-                                aux.PublicPlace = GetString(title, "Type a new public place"));
+                                newPerson.Address.PublicPlace = GetString(title, "Type a new public place");
                                 PrintBetweenColor("\n\t\t\tPublic place successfully updated!\n");
                                 break;
 
                             case 5:
-                                aux.PublicPlaceType = GetString(title, "Type a new public place type"));
+                                newPerson.Address.PublicPlaceType = GetString(title, "Type a new public place type");
                                 PrintBetweenColor("\n\t\t\tPublic place type successfully updated!\n");
                                 break;
 
                             case 6:
-                                aux.Childhood = GetString(title, "Type a new childhood"));
+                                newPerson.Address.Childhood = GetString(title, "Type a new childhood");
                                 PrintBetweenColor("\n\t\t\tChildhood successfully updated!\n");
                                 break;
 
                             case 7:
-                                aux.PlaceNumber = GetValue(title, "Type a new number", 1, 1));
+                                newPerson.Address.PlaceNumber = GetValue(title, "Type a new number", 1, 1);
                                 PrintBetweenColor("\n\t\t\tNumber successfully updated!\n");
                                 break;
 
                             case 8:
-                                aux.Complement = GetString(title, "Type a new complement"));
+                                newPerson.Address.Complement = GetString(title, "Type a new complement");
                                 PrintBetweenColor("\n\t\t\tComplement successfully updated!\n");
                                 break;
 
@@ -423,10 +478,10 @@ internal class Program
 
                     case 4:
                         Console.Write($"\n\t\tCurrent email: ");
-                        PrintBetweenColor($"{person.Email}\n");
+                        PrintBetweenColor($"{newPerson.Email}\n");
                         Pause();
 
-                        person.Email = GetString(title, "Type new email"));
+                        newPerson.Email = GetString(title, "Type new email");
                         PrintBetweenColor("\n\t\tEmail successfully updated");
                         break;
                 }
@@ -438,74 +493,112 @@ internal class Program
         else
             PrintBetweenColor("\n\t\t\t\tPerson not found!\n");
 
-        return person;
+        return newPerson;
     }
 
-    static void RemovePerson(PersonList personList)
+    static bool RemovePerson(PersonList personList)
     {
+        if (personList.IsEmpty())
+            return false;
+
         string title = "remove person";
 
-        if (personList.RemoveByName(GetString(title, "Type person name")) != null)
-            PrintBetweenColor("\n\t\t\tPerson successfully removed!\n");
-        else
-            PrintBetweenColor("\n\t\t\t       Person not found!\n");
+        string command;
+        int selectedIndex;
+
+        do
+        {
+            do
+            {
+                ClearScreen();
+                ShowTitle(title);
+                Console.WriteLine();
+                int index = 0;
+
+                Console.WriteLine("\t\t[0] Cancel");
+
+                foreach (var person in personList.GetAll())
+                    Console.WriteLine($"\t\t[{++index}] {person.Name}");
+
+                Console.Write($"\n\t\tSelect a name by a valid index: ");
+                command = Console.ReadLine();
+            } while (!int.TryParse(command, out selectedIndex));
+
+        } while (selectedIndex < 0 || selectedIndex > personList.GetAll().Count);
+
+        if (selectedIndex == 0)
+            return false;
+
+        personList.Remove(personList.GetByIndex(selectedIndex - 1));
+
+        return true;
     }
 
-    static void ShowRegisteredPersons(PersonList personList)
+    static bool ShowRegisteredPersons(PersonList personList)
     {
-        PersonList copiedList = personList.GetCopy();
-
-        if (!copiedList.IsEmpty()) 
+        if (!personList.IsEmpty()) 
         {
+            int index = 0;
             PrintBetweenColor("\n\t\t\t     REGISTERED PERSONS\n");
 
-            while (!copiedList.IsEmpty())
+            while (personList.GetAll().Count != index)
             {
-                Person aux = copiedList.Remove();
+                Person aux = personList.GetByIndex(index++);
 
                 PrintBetweenColor("\n\t\t\t           Info               ");
                 Console.WriteLine($"\n\t\t\t   Name..............: {aux.Name}" +
                                   $"\n\t\t\t   Email.............: {aux.Email}");
                 PrintBetweenColor("\n\t\t\t           Phones               ");
-                Console.WriteLine(aux.Phones.ToString());
-                PrintBetweenColor("\t\t\t          Address           ");
+                foreach (Phone phone in aux.Phones.GetAll())
+                    Console.WriteLine(phone.ToString());
+                PrintBetweenColor("\n\t\t\t          Address           ");
                 Console.WriteLine(aux.Address.ToString());
-
-
             }
-                Console.Write($"\n\t\t{copiedList.Remove()}");
-        }
-        else 
-            PrintBetweenColor("\n\t\t     You don't have persons registered!\n");
+
+            return true;
         }
 
-    static void ShowRegisteredPerson(PersonList persons)
+        return false; 
+        }
+
+    static bool ShowRegisteredPerson(PersonList persons)
     {
-        Person? aux = persons.GetCopy().GetByName(GetString("show data", "Type a name to find"));
-
-        if (aux != null) 
+        if (!persons.IsEmpty())
         {
-            PrintBetweenColor("\n\t\t\t           Info               ");
-            Console.WriteLine($"\n\t\t\t   Name..............: {aux.Name}" +
-                              $"\n\t\t\t   Email.............: {aux.Email}");
-            PrintBetweenColor("\n\t\t\t           Phones               ");
-            Console.WriteLine(aux.Phones.ToString());
-            PrintBetweenColor("\t\t\t          Address           ");
-            Console.WriteLine(aux.Address.ToString());
+            foreach (Person person in persons.GetAll())
+                Console.WriteLine(person.ToString());
+
+            Pause();
+
+            Person? aux = persons.GetByName(GetString("show data", "Type a name to find"));
+
+            if (aux != null) 
+            {
+                PrintBetweenColor("\n\t\t\t           Info               ");
+                Console.WriteLine($"\n\t\t\t   Name..............: {aux.Name}" +
+                                  $"\n\t\t\t   Email.............: {aux.Email}");
+                PrintBetweenColor("\n\t\t\t           Phones               ");
+
+                foreach (Phone phone in aux.Phones.GetAll())
+                    Console.WriteLine(phone.ToString());
+
+                PrintBetweenColor("\n\t\t\t          Address           ");
+                Console.WriteLine(aux.Address.ToString());
+            
+                return true;
+            }
         }
-        else
-            PrintBetweenColor("\n\t\t You don't have this person in your phone book!\n");
+
+        return false;
     }
 
     private static void Main(string[] args)
     {
         string title = "main page";
 
-        List<Person> persons = LoadPersons();
-        List<Phone> phones = LoadPhones();
-        List<Address> addresses = LoadAddresses();
+        PersonList persons = LoadPersons();
 
-        int personIdCounter = LoadIdCounter(phones);
+        int personIdCounter = LoadIdCounter(persons.GetAll());
         int command;
 
         do
@@ -521,31 +614,50 @@ internal class Program
                     Person newPerson = RegisterPerson(personIdCounter);
 
                     if (persons.Add(newPerson))
-                    {
                         PrintBetweenColor("\n\t\t\tPerson successfully registered!\n");
-
-                    }
                     else
-                        PrintBetweenColor("\n\t\t   You already have a person with the same name!\n");
+                        PrintBetweenColor("\n\t\t\t   You already have a person with the same name!\n");
                     break;
 
                 case 2:
-                    EditPerson(persons.GetByName(GetString("edit person", "Type person name")));
+                    if (!persons.IsEmpty())
+                    {
+                        Person oldPerson = persons.GetByName(GetString("edit person", "Type person name"));
+
+                        if (oldPerson != null)
+                        {
+                            Person updatedPerson = EditPerson(oldPerson);
+
+                            persons.Update(oldPerson, updatedPerson);
+
+                            PrintBetweenColor("\n\t\t\tPerson successfully updated!\n");
+                        }
+                        else
+                            PrintBetweenColor("\n\t\t\t\tPerson not found!\n");
+                    }
+                    else
+                        PrintBetweenColor("\n\t\t\tYou don't have persons registered!\n");
                     break;
 
                 case 3:
-                    RemovePerson(persons);
+                    if (RemovePerson(persons))
+                        PrintBetweenColor("\n\t\t\t   Person successfully removed!\n");
+                    else
+                        PrintBetweenColor("\n\t\t\t      Operation cancelled!\n");
                     break;
 
                 case 4:
-                    ShowRegisteredPersons(persons);
+                    if (!ShowRegisteredPersons(persons))
+                        PrintBetweenColor("\n\t\t\tYou don't have persons registered!\n");
                     break;
 
                 case 5:
-                    ShowRegisteredPerson(persons);
+                    if (!ShowRegisteredPerson(persons))
+                       PrintBetweenColor("\n\t\t\t  Failed to show person data!\n");
                     break;
             }
 
+            SavePersons(persons);
             Pause();
 
         } while (command != 0);
