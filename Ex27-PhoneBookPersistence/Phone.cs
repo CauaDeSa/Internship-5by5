@@ -18,6 +18,6 @@
             return $"{PersonId};{PhoneNumber}";
         }
 
-        public override string ToString() { return $"\n\t\t\t   Phone number: {this.PhoneNumber}"; }
+        public override string ToString() { return $"\n\t\t\t   Phone number......: {this.PhoneNumber}"; }
     }
 }

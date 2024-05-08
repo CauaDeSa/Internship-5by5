@@ -1,4 +1,6 @@
-﻿namespace Ex27_PhoneBookPersistence
+﻿using System.Collections.Generic;
+
+namespace Ex27_PhoneBookPersistence
 {
     internal class AddressList
     {
