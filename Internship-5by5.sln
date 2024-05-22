@@ -125,9 +125,31 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex26-ArchiveManipulation", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ex27-PhoneBookPersistence", "Ex27-PhoneBookPersistence\Ex27-PhoneBookPersistence.csproj", "{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson22-TryCatch", "Lesson22-TryCatch\Lesson22-TryCatch.csproj", "{5D104855-782D-4EF3-ABAC-24CCDED6EFBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson22-TryCatch", "Lesson22-TryCatch\Lesson22-TryCatch.csproj", "{5D104855-782D-4EF3-ABAC-24CCDED6EFBC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lesson23-FileStreamTryCatch", "Lesson23-FileStreamTryCatch\Lesson23-FileStreamTryCatch.csproj", "{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson23-FileStreamTryCatch", "Lesson23-FileStreamTryCatch\Lesson23-FileStreamTryCatch.csproj", "{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lesson24-Lambda", "Lesson24-Lambda\Lesson24-Lambda.csproj", "{9A80377E-74A9-46C4-9B4F-F2999ECB0710}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Week-05", "Week-05", "{385454FC-1658-4541-862E-D5A6F22D4928}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Week-06", "Week-06", "{1739BB45-9E3F-4150-ABBA-FFCB389CCA64}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{279D0FCF-C0C3-4615-88BC-7C01D05890EF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ex02-DBAluno", "Ex02-DBAluno", "{D75D59BB-6409-45A7-B97B-DD07D7F1C32D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Documents\SQL Server Management Studio\BDAluno\CreateInsert.sql = ..\..\..\Documents\SQL Server Management Studio\BDAluno\CreateInsert.sql
+		..\..\..\Documents\SQL Server Management Studio\BDAluno\PROC.sql = ..\..\..\Documents\SQL Server Management Studio\BDAluno\PROC.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{8372D3CE-EFA6-4B35-BA14-5169841C537E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ex01-DBLojaFotografia", "Ex01-DBLojaFotografia", "{B5EC0948-1ECF-4CF1-BFEC-D0F0D79F487E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Documents\SQL Server Management Studio\BDLojaFotografia\Creation.sql = ..\..\..\Documents\SQL Server Management Studio\BDLojaFotografia\Creation.sql
+		..\..\..\Documents\SQL Server Management Studio\BDLojaFotografia\Insertions.sql = ..\..\..\Documents\SQL Server Management Studio\BDLojaFotografia\Insertions.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -339,6 +361,10 @@ Global
 		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A80377E-74A9-46C4-9B4F-F2999ECB0710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A80377E-74A9-46C4-9B4F-F2999ECB0710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A80377E-74A9-46C4-9B4F-F2999ECB0710}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A80377E-74A9-46C4-9B4F-F2999ECB0710}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -403,6 +429,11 @@ Global
 		{9E5D5B7D-CAD2-4375-BBB4-2BA69DC2F25D} = {53C4BF1B-BA5C-4891-BC2F-36ECD6572FA7}
 		{5D104855-782D-4EF3-ABAC-24CCDED6EFBC} = {0F3B81C2-CD3F-4794-B278-CFB26A0CF4AF}
 		{B66AB5DC-E6F2-4695-B4F5-81038EF8525E} = {0F3B81C2-CD3F-4794-B278-CFB26A0CF4AF}
+		{9A80377E-74A9-46C4-9B4F-F2999ECB0710} = {0F3B81C2-CD3F-4794-B278-CFB26A0CF4AF}
+		{279D0FCF-C0C3-4615-88BC-7C01D05890EF} = {1739BB45-9E3F-4150-ABBA-FFCB389CCA64}
+		{D75D59BB-6409-45A7-B97B-DD07D7F1C32D} = {279D0FCF-C0C3-4615-88BC-7C01D05890EF}
+		{8372D3CE-EFA6-4B35-BA14-5169841C537E} = {385454FC-1658-4541-862E-D5A6F22D4928}
+		{B5EC0948-1ECF-4CF1-BFEC-D0F0D79F487E} = {8372D3CE-EFA6-4B35-BA14-5169841C537E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {84A776AD-5CD1-4264-96E1-055F2EE0A432}
