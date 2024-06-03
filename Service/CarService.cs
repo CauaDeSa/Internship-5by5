@@ -17,6 +17,6 @@ namespace Service
 
         public List<Car> GetAllCars() => _carRepository.GetAllCars();
 
-        public Car GetCarById(int id) => _carRepository.GetCarById(id);
+        public Car? GetCarById(int id) => _carRepository.GetCarById(id);
     }
 }
